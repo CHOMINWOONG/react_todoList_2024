@@ -1,6 +1,8 @@
 import { Button, TextField } from "@mui/material";
+import { useTodosState } from "../../hooks";
 
 export default function WritePage() {
+  const todosState = useTodosState();
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -13,8 +15,11 @@ export default function WritePage() {
       form.regDate.focus();
       return;
     }
+
+    todosState.addTodo(form.regDate.value, form.content.value);
   }
 
+  
     return(
       <>
         <form className="flex-1 flex p-10 flex-col gap-7" onSubmit={onSubmit}>
