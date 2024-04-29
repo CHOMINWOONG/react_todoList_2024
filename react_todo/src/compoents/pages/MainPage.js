@@ -1,5 +1,11 @@
-export default function MainPage() {
+import TodosEmpty from "../TodosEmpty";
 
+export default function MainPage() {
+  const todosEmpty = true;
+
+  if (todosEmpty) {
+    return <TodosEmpty />
+  }
     return(
       <>
         <div className="flex-1 flex justify-center items-center">
