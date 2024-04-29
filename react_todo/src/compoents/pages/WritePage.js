@@ -1,14 +1,47 @@
-import { TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 
 export default function WritePage() {
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+
+    form.content.value = form.content.value.trim();
+
+    if ( form.regDate.value.length == 0) {
+      alert("날짜를 입력해주세요.");
+      form.regDate.focus();
+      return;
+    }
+  }
 
     return(
       <>
-        <div className="flex-1 flex p-10 flex-col gap-7">
-        <TextField label="날짜 입력" focused type="datetime-local"/>
+        <form className="flex-1 flex p-10 flex-col gap-7" onSubmit={onSubmit}>
+          <TextField 
+          label="날짜 입력" 
+          focused 
+          type="datetime-local"
+          name="regDate"
+          />
 
-          <TextField label="할 일 작성" multiline/>
-        </div>
+          <TextField 
+          label="할 일 작성" 
+          multiline
+          name="content"
+          className="flex-1 flex"
+          InputProps={{ className: "flex-1 flex-col" }}
+          inputProps={{ className: "flex-1" }}
+          />
+
+          <Button type="submit" variant="contained">
+            <span>
+              <i class="fa-solid fa-pencil"></i>
+              <span>&nbsp;</span>
+              <span>추가하기</span>
+            </span>
+          </Button>
+        </form>
       </>
     );
   }
