@@ -1,20 +1,21 @@
-import { useRef } from "react";
+import { useRef, useState, useMemo } from "react";
 import { useRecoilState } from "recoil";
 import { dateToStr } from "./utill";
 import { todosAtom, lastTodoIdAtom } from "./atoms";
+import { produce } from "immer";
 
 export function useTodosState() {
     const [todos, setTodos] = useRecoilState(todosAtom);
     const [lastTodoId, setLastTodoId] = useRecoilState(lastTodoIdAtom);
     const lastTodoIdRef = useRef(lastTodoId);
   
-    const addTodo = (newContent) => {
+    const addTodo = (regDate, newContent) => {
       const id = ++lastTodoIdRef.current;
       setLastTodoId(id);
   
       const newTodo = {
         id,
-        regDate: dateToStr(new Date()),
+        regDate: dateToStr(new Date(regDate)),
         content: newContent,
       }
   
@@ -64,6 +65,18 @@ export function useTodosState() {
   
       return todos[index];
     }
+
+    const toggleTodoCompletedById = (id) => {
+      const index = findTodoIndexById(id);
+
+      if ( index == -1 ) return;
+
+      setTodos(
+        produce(todos, (draft) => {
+          draft[index].completed = !draft[index].completed
+        })
+      )
+    }
   
     return {
       todos,
@@ -72,6 +85,22 @@ export function useTodosState() {
       modifyTodo,
       removeTodoById,
       findTodoById,
-      modifyTodoById
+      modifyTodoById,
+      toggleTodoCompletedById
+    }
+  }
+
+export function useTodoOptionDrawerState() {
+    const [todoId, setTodoId] = useState(null);
+    const opened = useMemo(() => todoId !== null, [todoId]);
+    const close = () => setTodoId(null);
+    const open = (id) => setTodoId(id);
+  
+    return {
+      
+      todoId,
+      opened,
+      close,
+      open     
     }
   }
