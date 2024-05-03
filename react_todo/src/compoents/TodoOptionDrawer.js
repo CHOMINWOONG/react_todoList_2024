@@ -38,7 +38,7 @@ export default function TodoOptionDrawer({state}) {
               <span className="text-[color:var(--mui-color-primary-main)] font-bold">{state.todoId}번</span>
             </ListItem>
             <Divider variant="middle" />
-            <ListItemButton className='!p-5' Component={NavLink} to={`/edit/${todo?.id}`}>
+            <ListItemButton className='!p-5' component={NavLink} to={`/edit/${todo?.id}`}>
               <i class="fa-regular fa-pen-to-square"></i>
               <span className='ml-1'>수정</span>
               </ListItemButton>

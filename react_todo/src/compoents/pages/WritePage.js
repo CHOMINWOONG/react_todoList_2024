@@ -21,6 +21,9 @@ export default function WritePage() {
     const newTodoId = todosState.addTodo(form.regDate.value, form.content.value);
 
     noticeSnackbarState.open(`${newTodoId}번 할 일이 추가되었습니다.`);
+
+    form.content.value = "";
+    form.content.focus();
   }
 
   

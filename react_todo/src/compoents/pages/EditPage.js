@@ -10,8 +10,8 @@ export default function EditPage() {
   const todosState = useTodosState();
   const noticeSnackbarState = useNoticeSnackbarState();
 
-  const todo = todosState.findTodoById();
-  
+  const todo = todosState.findTodoById(id);
+
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -34,6 +34,7 @@ export default function EditPage() {
     noticeSnackbarState.open(`${todo.id}번 할 일이 수정되었습니다.`);
   }
 
+  const regDateForInput = todo.regDate.substr(0, 16).replace(" ", "T");
   
     return(
       <>
@@ -43,6 +44,7 @@ export default function EditPage() {
           focused 
           type="datetime-local"
           name="regDate"
+          defaultValue={regDateForInput}
           />
 
           <TextField 
@@ -52,6 +54,7 @@ export default function EditPage() {
           className="flex-1 flex"
           InputProps={{ className: "flex-1 flex-col" }}
           inputProps={{ className: "flex-1" }}
+          defaultValue={todo.content}
           />
 
           <Button type="submit" variant="contained">
