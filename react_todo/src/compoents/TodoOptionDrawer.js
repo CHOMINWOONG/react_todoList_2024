@@ -7,6 +7,7 @@ import {
     ListItemButton,
     Divider
 } from "@mui/material";
+import { NavLink } from "react-router-dom";
 
 export default function TodoOptionDrawer({state}) {
     const todosState = useTodosState();
@@ -27,7 +28,6 @@ export default function TodoOptionDrawer({state}) {
   
     return(
       <>
-        {/* <EditTodoModal state={editTodoModalState} todo={todo} closeDrawer={state.close} /> */}
         <SwipeableDrawer
           anchor={"bottom"}
           open={state.opened}
@@ -38,7 +38,7 @@ export default function TodoOptionDrawer({state}) {
               <span className="text-[color:var(--mui-color-primary-main)] font-bold">{state.todoId}번</span>
             </ListItem>
             <Divider variant="middle" />
-            <ListItemButton className='!p-5' onClick={() => {}}>
+            <ListItemButton className='!p-5' Component={NavLink} to={`/edit/${todo?.id}`}>
               <i class="fa-regular fa-pen-to-square"></i>
               <span className='ml-1'>수정</span>
               </ListItemButton>
