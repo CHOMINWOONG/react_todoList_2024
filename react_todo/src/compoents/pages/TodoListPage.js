@@ -5,7 +5,7 @@ import { useTodoOptionDrawerState } from "./../../hooks";
 import { useTodosState } from "./../../hooks";
 import TodoOptionDrawer from "./../TodoOptionDrawer"
 import TodoListItem from "../TodoListItem";
-import { TodoList__filterCompletedIndexAtom } from "../../atoms";
+import { TodoList__filterCompletedIndexAtom, TodoList__sortIndexAtom } from "../../atoms";
 
 
 export default function TodoList() {
@@ -15,6 +15,8 @@ export default function TodoList() {
     const [filterCompletedIndex, setFilterCompletedIndex] = useRecoilState(
       TodoList__filterCompletedIndexAtom
     );
+    const [sortIndex, setSortIndex] = useRecoilState(TodoList__sortIndexAtom);
+
 
     const getFilteredTodos = () => {
         if ( filterCompletedIndex == 1 ) {
@@ -67,6 +69,59 @@ export default function TodoList() {
             </span>
           }
           value={2}
+        />
+      </Tabs>
+
+      <Tabs
+        variant="scrollable"
+        value={sortIndex}
+        onChange={(event, newValue) => {
+          setSortIndex(newValue);
+        }}
+      >
+        <Tab
+          className="flex-grow !max-w-[none] px-4"
+          label={
+            <span className="flex items-baseline">
+              <i className="fa-regular fa-clock mr-2"></i>
+              <span className="mr-2 whitespace-nowrap">급해요</span>
+              <i className="fa-solid fa-sort-up relative top-[3px]"></i>
+            </span>
+          }
+          value={0}
+        />
+        <Tab
+          className="flex-grow !max-w-[none] px-4"
+          label={
+            <span className="flex items-baseline">
+              <i className="fa-regular fa-clock mr-2"></i>
+              <span className="mr-2 whitespace-nowrap">널럴해요</span>
+              <i className="fa-solid fa-sort-down relative top-[-3px]"></i>
+            </span>
+          }
+          value={1}
+        />
+        <Tab
+          className="flex-grow !max-w-[none] px-4"
+          label={
+            <span className="flex items-baseline">
+              <i className="fa-solid fa-pen mr-2"></i>
+              <span className="mr-2 whitespace-nowrap">작성순</span>
+              <i className="fa-solid fa-sort-up relative top-[3px]"></i>
+            </span>
+          }
+          value={2}
+        />
+        <Tab
+          className="flex-grow !max-w-[none] px-4"
+          label={
+            <span className="flex items-baseline">
+              <i className="fa-solid fa-pen mr-2"></i>
+              <span className="mr-2 whitespace-nowrap">작성순</span>
+              <i className="fa-solid fa-sort-down relative top-[-3px]"></i>
+            </span>
+          }
+          value={3}
         />
       </Tabs>
   
