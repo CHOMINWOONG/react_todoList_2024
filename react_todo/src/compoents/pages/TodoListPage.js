@@ -32,7 +32,11 @@ export default function TodoList() {
     }
         const filteredTodos = getFilteredTodos();
     
-  
+        const sortedTodos = [...filteredTodos].sort((a, b) => {
+          if ( a.performDate == b.performDate ) return 0;
+
+          return a.performDate > b.performDate ? 1 : -1
+        })
 
     return (
       <>
@@ -128,7 +132,7 @@ export default function TodoList() {
   
         <div className='mt-4 px-4'>
           <ul>
-            {filteredTodos.map((todo, index) => (
+            {sortedTodos.map((todo, index) => (
               <TodoListItem 
                 key={todo.id} 
                 todo={todo} 
