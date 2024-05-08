@@ -61,6 +61,7 @@ export default function TodoList() {
         }
     
         const sortedTodos = getSortedTodos();
+        
     return (
       <>
         <TodoOptionDrawer state={todoOptionDrawerState} />
